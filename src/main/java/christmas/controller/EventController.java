@@ -1,8 +1,9 @@
 package christmas.controller;
 
 import static christmas.constants.ErrorMessage.INVALID_DATE_MESSAGE;
-import static christmas.view.OutputMessage.REQUEST_DATE_MESSAGE;
+import static christmas.constants.OutputMessage.REQUEST_DATE_MESSAGE;
 
+import christmas.domain.Player;
 import christmas.domain.VisitDate;
 import christmas.view.InputView;
 import christmas.view.OutputView;
@@ -19,6 +20,9 @@ public class EventController {
 
     public void run() {
         VisitDate visitDate = createVisitDate();
+        Player player = Player.from(visitDate);
+        player.calculateDiscount();
+
     }
 
     private VisitDate createVisitDate() {
