@@ -1,8 +1,12 @@
 package christmas.domain;
 
-import static christmas.constants.ErrorMessage.INVALID_DATE_MESSAGE;
+import christmas.exception.InvalidDateException;
 
 public class VisitDate {
+
+    private final int MIN_DATE = 1;
+    private final int MAX_DATE = 31;
+
     private final int date;
 
     private VisitDate(int date) {
@@ -15,8 +19,8 @@ public class VisitDate {
     }
 
     private void validate(int date) {
-        if ((date < 1) || (date > 31)) {
-            throw new IllegalArgumentException(INVALID_DATE_MESSAGE);
+        if ((date < MIN_DATE) || (date > MAX_DATE)) {
+            throw InvalidDateException.invalidDateException;
         }
     }
 
