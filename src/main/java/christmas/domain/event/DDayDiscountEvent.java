@@ -9,7 +9,7 @@ import static christmas.constants.domain.DDayDiscountConstants.START_DATE;
 
 import christmas.domain.VisitDate;
 
-public class DDayDiscountVisitDateEvent implements VisitDateEvent {
+public class DDayDiscountEvent implements VisitDateEvent {
 
     private final String eventName = "크리스마스 디데이 할인";
 
