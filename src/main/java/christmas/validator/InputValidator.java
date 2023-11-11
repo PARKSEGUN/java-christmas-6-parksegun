@@ -1,23 +1,27 @@
 package christmas.validator;
 
-import static christmas.constants.ErrorMessage.INVALID_DATE_MESSAGE;
+import christmas.exception.InvalidDateException;
 
 public class InputValidator {
     private static final String NUMBER_REGEX = "[0-9]+";
 
 
-    public static void overNumberMax(String input) {
+    public static void notCorrectNumber(String input) {
         notNumber(input);   //outNumberRange에 들어오게되면 숫자를 판단하는 의미이기에 먼저 숫자인지를 판단한다.
+        overNumberRange(input);
+    }
+
+    private static void overNumberRange(String input) {
         try {
             Integer.parseInt(input);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(INVALID_DATE_MESSAGE);
+            throw InvalidDateException.invalidDateException;
         }
     }
 
     private static void notNumber(String input) {
         if (isNotMatchRegex(input)) {
-            throw new IllegalArgumentException(INVALID_DATE_MESSAGE);
+            throw InvalidDateException.invalidDateException;
         }
     }
 
