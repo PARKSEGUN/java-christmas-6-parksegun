@@ -1,13 +1,15 @@
 package christmas.domain.event;
 
+import static christmas.constants.domain.EventName.SPECIAL_DISCOUNT;
 import static christmas.constants.domain.SpecialDiscountConstants.DEFAULT_DISCOUNT;
 import static christmas.constants.domain.SpecialDiscountConstants.NO_DISCOUNT;
 import static christmas.constants.domain.SpecialDiscountConstants.START_DATES;
 
+import christmas.constants.domain.EventName;
 import christmas.domain.VisitDate;
 
 public class SpecialDiscountEvent implements VisitDateEvent {
-    private final String eventName = "특별 할인";
+    private final EventName eventName = SPECIAL_DISCOUNT;
 
     @Override
     public int findDiscount(VisitDate visitDate) {
@@ -18,6 +20,6 @@ public class SpecialDiscountEvent implements VisitDateEvent {
     }
 
     public String getEventName() {
-        return eventName;
+        return eventName.getEventName();
     }
 }
