@@ -5,7 +5,7 @@ public class OutputView {
         System.out.println(message);
     }
 
-    public void printRequestDate(OutputMessage message) {
+    public void printRequestMessage(OutputMessage message) {
         System.out.println(message.getMessage());
     }
 

@@ -6,12 +6,14 @@ import static christmas.constants.domain.DDayDiscountConstants.END_DATE;
 import static christmas.constants.domain.DDayDiscountConstants.INCREASE_UNIT;
 import static christmas.constants.domain.DDayDiscountConstants.NO_DISCOUNT;
 import static christmas.constants.domain.DDayDiscountConstants.START_DATE;
+import static christmas.constants.domain.EventName.D_DAY_DISCOUNT;
 
+import christmas.constants.domain.EventName;
 import christmas.domain.VisitDate;
 
 public class DDayDiscountEvent implements VisitDateEvent {
 
-    private final String eventName = "크리스마스 디데이 할인";
+    private final EventName eventName = D_DAY_DISCOUNT;
 
 
     @Override
@@ -24,6 +26,6 @@ public class DDayDiscountEvent implements VisitDateEvent {
     }
 
     public String getEventName() {
-        return eventName;
+        return eventName.getEventName();
     }
 }
