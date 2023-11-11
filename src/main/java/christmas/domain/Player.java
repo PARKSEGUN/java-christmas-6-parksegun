@@ -1,7 +1,7 @@
 package christmas.domain;
 
-import christmas.domain.event.DDayDiscountVisitDateEvent;
-import christmas.domain.event.SpecialDiscountVisitDateEvent;
+import christmas.domain.event.DDayDiscountEvent;
+import christmas.domain.event.SpecialDiscountEvent;
 import java.util.Map;
 
 public class Player {
@@ -9,14 +9,14 @@ public class Player {
     private final VisitDate visitDate;
     private final EventDetails eventDetails;
 
-    private final DDayDiscountVisitDateEvent dDayDiscountEvent;
-    private final SpecialDiscountVisitDateEvent specialDiscountVisitDateEvent;
+    private final DDayDiscountEvent dDayDiscountEvent;
+    private final SpecialDiscountEvent specialDiscountEvent;
 
     private Player(VisitDate visitDate) {
         this.visitDate = visitDate;
         this.eventDetails = EventDetails.initialized();
-        this.dDayDiscountEvent = new DDayDiscountVisitDateEvent();
-        this.specialDiscountVisitDateEvent = new SpecialDiscountVisitDateEvent();
+        this.dDayDiscountEvent = new DDayDiscountEvent();
+        this.specialDiscountEvent = new SpecialDiscountEvent();
     }
 
     public static Player from(VisitDate visitDate) {
@@ -35,8 +35,8 @@ public class Player {
     }
 
     private void calculateSpecialDiscount() {
-        int discount = specialDiscountVisitDateEvent.findDiscount(visitDate);
-        eventDetails.addDiscount(specialDiscountVisitDateEvent.getEventName(), discount);
+        int discount = specialDiscountEvent.findDiscount(visitDate);
+        eventDetails.addDiscount(specialDiscountEvent.getEventName(), discount);
     }
 
     public Map<String, Integer> getEventDetails() {

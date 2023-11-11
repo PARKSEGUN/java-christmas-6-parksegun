@@ -6,7 +6,7 @@ import static christmas.constants.domain.SpecialDiscountConstants.START_DATES;
 
 import christmas.domain.VisitDate;
 
-public class SpecialDiscountVisitDateEvent implements VisitDateEvent {
+public class SpecialDiscountEvent implements VisitDateEvent {
     private final String eventName = "특별 할인";
 
     @Override
