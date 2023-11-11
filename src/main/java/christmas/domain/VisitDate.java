@@ -20,7 +20,7 @@ public class VisitDate {
 
     private void validate(int date) {
         if ((date < MIN_DATE) || (date > MAX_DATE)) {
-            throw InvalidDateException.invalidDateException;
+            throw InvalidDateException.exception;
         }
     }
 
