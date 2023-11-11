@@ -1,5 +1,8 @@
 package christmas.domain.event;
 
+import static christmas.constants.domain.DDayDiscountConstants.DEFAULT_DISCOUNT;
+import static christmas.constants.domain.DDayDiscountConstants.INCREASE_UNIT;
+import static christmas.constants.domain.DDayDiscountConstants.NO_DISCOUNT;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import christmas.domain.VisitDate;
@@ -11,7 +14,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 public class DDayDiscountEventTest {
     private final DDayDiscountEvent dDayDiscountEvent = new DDayDiscountEvent();
-    private final int NO_DISCOUNT = 0;
 
     @ParameterizedTest
     @DisplayName("1 ~ 25 일 사이를 벗어난다면 할인 없이 없다.")
@@ -47,11 +49,11 @@ public class DDayDiscountEventTest {
 
     private static Stream<Arguments> findDiscount() {
         return Stream.of(
-                Arguments.of(VisitDate.from(1), 1000),
-                Arguments.of(VisitDate.from(2), 1100),
-                Arguments.of(VisitDate.from(3), 1200),
-                Arguments.of(VisitDate.from(4), 1300),
-                Arguments.of(VisitDate.from(5), 1400)
+                Arguments.of(VisitDate.from(1), DEFAULT_DISCOUNT + INCREASE_UNIT * 0),
+                Arguments.of(VisitDate.from(2), DEFAULT_DISCOUNT + INCREASE_UNIT * 1),
+                Arguments.of(VisitDate.from(3), DEFAULT_DISCOUNT + INCREASE_UNIT * 2),
+                Arguments.of(VisitDate.from(4), DEFAULT_DISCOUNT + INCREASE_UNIT * 3),
+                Arguments.of(VisitDate.from(5), DEFAULT_DISCOUNT + INCREASE_UNIT * 4)
         );
     }
 }
