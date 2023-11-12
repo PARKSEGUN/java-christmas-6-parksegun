@@ -3,6 +3,7 @@ package christmas.controller;
 import static christmas.constants.ErrorMessage.INVALID_DATE_MESSAGE;
 import static christmas.constants.OutputMessage.REQUEST_DATE_MESSAGE;
 
+import christmas.constants.OutputMessage;
 import christmas.domain.Player;
 import christmas.domain.VisitDate;
 import christmas.view.InputView;
@@ -22,14 +23,15 @@ public class EventController {
         VisitDate visitDate = createVisitDate();
         Player player = Player.from(visitDate);
         player.calculateDiscount();
-
+        outputView.printRequestMessage(OutputMessage.REQUEST_ORDER_MESSAGE);
+        inputView.readOrders();
     }
 
     private VisitDate createVisitDate() {
-        outputView.printRequestDate(REQUEST_DATE_MESSAGE);
+        outputView.printRequestMessage(REQUEST_DATE_MESSAGE);
         while (true) {
             try {
-                return VisitDate.from(inputView.readDate());
+                return VisitDate.from(inputView.readVisitDate());
             } catch (IllegalArgumentException e) {
                 outputView.printErrorMessage(INVALID_DATE_MESSAGE);
             }
