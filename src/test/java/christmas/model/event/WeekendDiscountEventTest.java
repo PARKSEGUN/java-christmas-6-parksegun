@@ -1,5 +1,6 @@
 package christmas.model.event;
 
+import static christmas.constants.model.EventConstants.NO_DISCOUNT;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import christmas.constants.model.EventName;
@@ -16,7 +17,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 public class WeekendDiscountEventTest {
     private static final int DEFAULT_DISCOUNT = 2023;
-    private static final int NO_DISCOUNT = 0;
     private final EventService eventService = new EventService();
 
     @ParameterizedTest
