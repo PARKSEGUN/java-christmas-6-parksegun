@@ -3,7 +3,9 @@ package christmas.service;
 import static christmas.constants.model.EventConstants.NO_DISCOUNT;
 
 import christmas.constants.model.DayInfo;
+import christmas.constants.model.EventBadge;
 import christmas.constants.model.EventName;
+import christmas.model.EventDetails;
 import christmas.model.Orders;
 import christmas.model.VisitDate;
 import christmas.model.event.DDayDiscountEvent;
@@ -55,4 +57,7 @@ public class EventService {
         return eventDetails;
     }
 
+    public EventBadge createEventBadge(EventDetails eventDetails) {
+        return EventBadge.findMatchingBadge(eventDetails.findAllDiscount());
+    }
 }
