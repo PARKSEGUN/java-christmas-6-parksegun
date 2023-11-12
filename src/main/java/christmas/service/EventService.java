@@ -7,6 +7,7 @@ import christmas.constants.model.EventName;
 import christmas.model.Orders;
 import christmas.model.VisitDate;
 import christmas.model.event.DDayDiscountEvent;
+import christmas.model.event.GiftEvent;
 import christmas.model.event.OrdersEvent;
 import christmas.model.event.SpecialDiscountEvent;
 import christmas.model.event.WeekdayDiscountEvent;
@@ -20,18 +21,21 @@ public class EventService {
     private final SpecialDiscountEvent specialDiscountEvent;
     private final WeekdayDiscountEvent weekdayDiscountEvent;
     private final WeekendDiscountEvent weekendDiscountEvent;
+    private final GiftEvent giftEvent;
 
     public EventService() {
         this.dDayDiscountEvent = new DDayDiscountEvent();
         this.specialDiscountEvent = new SpecialDiscountEvent();
         this.weekdayDiscountEvent = new WeekdayDiscountEvent();
         this.weekendDiscountEvent = new WeekendDiscountEvent();
+        this.giftEvent = new GiftEvent();
     }
 
     public Map<EventName, Integer> calculateDiscount(VisitDate visitDate, Orders orders) {
         Map<EventName, Integer> eventDetails = new HashMap<>();
         eventDetails.put(dDayDiscountEvent.getEventName(), dDayDiscountEvent.findDiscount(visitDate));
         eventDetails.put(specialDiscountEvent.getEventName(), specialDiscountEvent.findDiscount(visitDate));
+        eventDetails.put(giftEvent.getEventName(), giftEvent.findDiscount(orders));
         eventDetails.putAll(calculateWeekDiscount(visitDate, orders));
         return eventDetails;
     }

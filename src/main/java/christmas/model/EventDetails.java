@@ -12,8 +12,12 @@ public class EventDetails {
 
     private final Map<EventName, Integer> details;
 
-    public EventDetails(Map<EventName, Integer> details) {
+    private EventDetails(Map<EventName, Integer> details) {
         this.details = details;
+    }
+
+    public static EventDetails from(Map<EventName, Integer> details) {
+        return new EventDetails(details);
     }
 
     public static EventDetails initialized() {
