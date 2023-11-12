@@ -1,9 +1,9 @@
-package christmas.domain;
+package christmas.model;
 
 import static christmas.constants.InputConstants.DISTINGUISH_SIGN_TO_CHAR;
 
-import christmas.constants.domain.Menu;
-import christmas.constants.domain.MenuType;
+import christmas.constants.model.Menu;
+import christmas.constants.model.MenuType;
 import christmas.exception.InvalidOrderException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -16,8 +16,8 @@ public class Orders {
     private final List<Order> orders;
 
     private Orders(List<Order> orders) {
-        validateMenuNames(orders);
-        validateMenuCount(orders);
+        validate(orders);
+
         this.orders = orders;
     }
 
@@ -35,9 +35,32 @@ public class Orders {
         return newOrders;
     }
 
-    private void validateMenuNames(List<Order> orders) {
+
+    public int countDessertMenu() {
+        return orders.stream()
+                .filter(Order::isDessertMenu)
+                .mapToInt(Order::getCount)
+                .sum();
+    }
+
+    public int countMainMenu() {
+        return orders.stream()
+                .filter(Order::isMainMenu)
+                .mapToInt(Order::getCount)
+                .sum();
+    }
+
+    public int allPriceSum() {
+        return orders.stream()
+                .mapToInt(Order::price)
+                .sum();
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////
+    private void validate(List<Order> orders) {
         validateDuplicatedNames(orders);
         validateOrdersOnlyBeverage(orders);
+        validateMenuCount(orders);
     }
 
     private void validateDuplicatedNames(List<Order> orders) {
@@ -66,6 +89,7 @@ public class Orders {
                 .map(Menu::getMenuType)
                 .toList();
         if (isContainOnlyBeverage(menuTypes)) {
+
             throw InvalidOrderException.exception;
         }
     }
