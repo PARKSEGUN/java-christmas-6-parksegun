@@ -5,8 +5,9 @@ import static christmas.constants.ErrorMessage.INVALID_ORDER_MESSAGE;
 import static christmas.constants.OutputMessage.REQUEST_DATE_MESSAGE;
 
 import christmas.constants.OutputMessage;
-import christmas.domain.Orders;
-import christmas.domain.VisitDate;
+import christmas.constants.model.EventName;
+import christmas.model.Orders;
+import christmas.model.VisitDate;
 import christmas.service.EventService;
 import christmas.view.InputView;
 import christmas.view.OutputView;
@@ -27,7 +28,7 @@ public class EventController {
     public void run() {
         VisitDate visitDate = createVisitDate();
         Orders orders = createOrders();
-        Map<String, Integer> eventDetails = eventService.calculateDiscount(visitDate, orders);
+        Map<EventName, Integer> eventDetails = eventService.calculateDiscount(visitDate, orders);
         System.out.println(eventDetails);
     }
 

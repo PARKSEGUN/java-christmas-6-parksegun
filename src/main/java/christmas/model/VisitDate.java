@@ -1,16 +1,16 @@
-package christmas.domain;
+package christmas.model;
 
 import christmas.exception.InvalidDateException;
 
 public class VisitDate {
 
-    private final int MIN_DATE = 1;
-    private final int MAX_DATE = 31;
+    private static final int MIN_DATE = 1;
+    private static final int MAX_DATE = 31;
 
     private final int date;
 
     private VisitDate(int date) {
-        validate(date);
+        validateDate(date);
         this.date = date;
     }
 
@@ -18,7 +18,7 @@ public class VisitDate {
         return new VisitDate(date);
     }
 
-    private void validate(int date) {
+    private void validateDate(int date) {
         if ((date < MIN_DATE) || (date > MAX_DATE)) {
             throw InvalidDateException.exception;
         }

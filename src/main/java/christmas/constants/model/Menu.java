@@ -1,9 +1,9 @@
-package christmas.constants.domain;
+package christmas.constants.model;
 
-import static christmas.constants.domain.MenuType.APPETIZER;
-import static christmas.constants.domain.MenuType.BEVERAGE;
-import static christmas.constants.domain.MenuType.DESSERT;
-import static christmas.constants.domain.MenuType.MAIN;
+import static christmas.constants.model.MenuType.APPETIZER;
+import static christmas.constants.model.MenuType.BEVERAGE;
+import static christmas.constants.model.MenuType.DESSERT;
+import static christmas.constants.model.MenuType.MAIN;
 
 import christmas.exception.InvalidOrderException;
 import java.util.Arrays;

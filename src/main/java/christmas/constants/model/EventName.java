@@ -1,4 +1,4 @@
-package christmas.constants.domain;
+package christmas.constants.model;
 
 public enum EventName {
     D_DAY_DISCOUNT("크리스마스 디데이 할인"),

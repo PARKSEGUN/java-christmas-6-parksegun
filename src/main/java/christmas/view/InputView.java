@@ -14,8 +14,8 @@ public class InputView {
 
     private final OutputView outputView;
 
-    public InputView(OutputView outputView) {
-        this.outputView = outputView;
+    public InputView() {
+        this.outputView = new OutputView();
     }
 
     public int readVisitDate() {

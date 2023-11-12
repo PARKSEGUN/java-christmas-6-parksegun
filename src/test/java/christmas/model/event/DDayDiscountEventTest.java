@@ -1,11 +1,10 @@
-package christmas.domain.event;
+package christmas.model.event;
 
-import static christmas.constants.domain.DDayDiscountConstants.DEFAULT_DISCOUNT;
-import static christmas.constants.domain.DDayDiscountConstants.INCREASE_UNIT;
-import static christmas.constants.domain.DDayDiscountConstants.NO_DISCOUNT;
+import static christmas.constants.model.EventConstants.D_DAY_EVENT_DEFAULT_DISCOUNT;
+import static christmas.constants.model.EventConstants.NO_DISCOUNT;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import christmas.domain.VisitDate;
+import christmas.model.VisitDate;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -13,6 +12,8 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 public class DDayDiscountEventTest {
+    private static final int INCREASE_UNIT = 100;
+
     private final DDayDiscountEvent dDayDiscountEvent = new DDayDiscountEvent();
 
     @ParameterizedTest
@@ -49,11 +50,11 @@ public class DDayDiscountEventTest {
 
     private static Stream<Arguments> findDiscount() {
         return Stream.of(
-                Arguments.of(VisitDate.from(1), DEFAULT_DISCOUNT + INCREASE_UNIT * 0),
-                Arguments.of(VisitDate.from(2), DEFAULT_DISCOUNT + INCREASE_UNIT * 1),
-                Arguments.of(VisitDate.from(3), DEFAULT_DISCOUNT + INCREASE_UNIT * 2),
-                Arguments.of(VisitDate.from(4), DEFAULT_DISCOUNT + INCREASE_UNIT * 3),
-                Arguments.of(VisitDate.from(5), DEFAULT_DISCOUNT + INCREASE_UNIT * 4)
+                Arguments.of(VisitDate.from(1), D_DAY_EVENT_DEFAULT_DISCOUNT + INCREASE_UNIT * 0),
+                Arguments.of(VisitDate.from(2), D_DAY_EVENT_DEFAULT_DISCOUNT + INCREASE_UNIT * 1),
+                Arguments.of(VisitDate.from(3), D_DAY_EVENT_DEFAULT_DISCOUNT + INCREASE_UNIT * 2),
+                Arguments.of(VisitDate.from(4), D_DAY_EVENT_DEFAULT_DISCOUNT + INCREASE_UNIT * 3),
+                Arguments.of(VisitDate.from(5), D_DAY_EVENT_DEFAULT_DISCOUNT + INCREASE_UNIT * 4)
         );
     }
 }
