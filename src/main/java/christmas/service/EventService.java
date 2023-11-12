@@ -1,9 +1,16 @@
 package christmas.service;
 
-import christmas.domain.Orders;
-import christmas.domain.VisitDate;
-import christmas.domain.event.DDayDiscountEvent;
-import christmas.domain.event.SpecialDiscountEvent;
+import static christmas.constants.model.EventConstants.NO_DISCOUNT;
+
+import christmas.constants.model.DayInfo;
+import christmas.constants.model.EventName;
+import christmas.model.Orders;
+import christmas.model.VisitDate;
+import christmas.model.event.DDayDiscountEvent;
+import christmas.model.event.OrdersEvent;
+import christmas.model.event.SpecialDiscountEvent;
+import christmas.model.event.WeekdayDiscountEvent;
+import christmas.model.event.WeekendDiscountEvent;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,24 +18,37 @@ public class EventService {
 
     private final DDayDiscountEvent dDayDiscountEvent;
     private final SpecialDiscountEvent specialDiscountEvent;
+    private final WeekdayDiscountEvent weekdayDiscountEvent;
+    private final WeekendDiscountEvent weekendDiscountEvent;
 
     public EventService() {
         this.dDayDiscountEvent = new DDayDiscountEvent();
         this.specialDiscountEvent = new SpecialDiscountEvent();
+        this.weekdayDiscountEvent = new WeekdayDiscountEvent();
+        this.weekendDiscountEvent = new WeekendDiscountEvent();
     }
 
-    public Map<String, Integer> calculateDiscount(VisitDate visitDate, Orders orders) {
-        Map<String, Integer> eventDetails = new HashMap<>();
-        eventDetails.put(dDayDiscountEvent.getEventName(), calculateDDayDiscount(visitDate));
-        eventDetails.put(specialDiscountEvent.getEventName(), calculateSpecialDiscount(visitDate));
+    public Map<EventName, Integer> calculateDiscount(VisitDate visitDate, Orders orders) {
+        Map<EventName, Integer> eventDetails = new HashMap<>();
+        eventDetails.put(dDayDiscountEvent.getEventName(), dDayDiscountEvent.findDiscount(visitDate));
+        eventDetails.put(specialDiscountEvent.getEventName(), specialDiscountEvent.findDiscount(visitDate));
+        eventDetails.putAll(calculateWeekDiscount(visitDate, orders));
         return eventDetails;
     }
 
-    private int calculateDDayDiscount(VisitDate visitDate) {
-        return dDayDiscountEvent.findDiscount(visitDate);
+    private Map<EventName, Integer> calculateWeekDiscount(VisitDate visitDate, Orders orders) {
+        DayInfo day = DayInfo.findByDate(visitDate.getDate());
+        if (day.isWeekend()) {
+            return chooseCorrectEvent(weekendDiscountEvent, weekdayDiscountEvent, orders);
+        }
+        return chooseCorrectEvent(weekdayDiscountEvent, weekendDiscountEvent, orders);
     }
 
-    private int calculateSpecialDiscount(VisitDate visitDate) {
-        return specialDiscountEvent.findDiscount(visitDate);
+    private Map<EventName, Integer> chooseCorrectEvent(OrdersEvent leftEvent, OrdersEvent rightEvent, Orders orders) {
+        Map<EventName, Integer> eventDetails = new HashMap<>();
+        eventDetails.put(leftEvent.getEventName(), leftEvent.findDiscount(orders));
+        eventDetails.put(rightEvent.getEventName(), NO_DISCOUNT);
+        return eventDetails;
     }
+
 }
