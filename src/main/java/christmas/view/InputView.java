@@ -34,18 +34,23 @@ public class InputView {
         return Integer.parseInt(input);
     }
 
-    public String readOrders() {
+    public List<String> readOrders() {
         while (true) {
             try {
-                tryReadOrders();
+                return tryReadOrders();
             } catch (IllegalArgumentException e) {
                 outputView.printErrorMessage(INVALID_ORDER_MESSAGE);
             }
         }
     }
 
-    private String tryReadOrders() {
+    private List<String> tryReadOrders() {
         String input = Console.readLine();
+        readOrderValidate(input);
+        return Arrays.stream(input.split(SPLIT_SIGN)).toList();
+    }
+
+    private void readOrderValidate(String input) {
         InputValidator.endOfInputNotSplitSign(input);
         InputValidator.splitInputEmpty(input);
         List<String> splitInput = Arrays.stream(input.split(SPLIT_SIGN)).toList();
@@ -53,13 +58,10 @@ public class InputView {
         splitInput.stream()
                 .map(this::findOrderCount)
                 .forEach(InputValidator::notCorrectNumber);
-        System.out.println(splitInput);
-        return input;
     }
 
     private String findOrderCount(String input) {
         return input.substring(input.indexOf(DISTINGUISH_SIGN_TO_CHAR) + 1);
     }
 
-    // ...
 }

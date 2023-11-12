@@ -1,42 +1,31 @@
 package christmas.domain;
 
-import christmas.domain.event.DDayDiscountEvent;
-import christmas.domain.event.SpecialDiscountEvent;
 import java.util.Map;
 
 public class Player {
 
     private final VisitDate visitDate;
+    private final Orders orders;
     private final EventDetails eventDetails;
 
-    private final DDayDiscountEvent dDayDiscountEvent;
-    private final SpecialDiscountEvent specialDiscountEvent;
 
-    private Player(VisitDate visitDate) {
+    private Player(VisitDate visitDate, Orders orders) {
         this.visitDate = visitDate;
         this.eventDetails = EventDetails.initialized();
-        this.dDayDiscountEvent = new DDayDiscountEvent();
-        this.specialDiscountEvent = new SpecialDiscountEvent();
+        this.orders = orders;
     }
 
-    public static Player from(VisitDate visitDate) {
-        return new Player(visitDate);
+    public static Player of(VisitDate visitDate, Orders orders) {
+        return new Player(visitDate, orders);
     }
 
 
-    public void calculateDiscount() {
-        calculateDDayDiscount();
-        calculateSpecialDiscount();
+    public VisitDate getVisitDate() {
+        return visitDate;
     }
 
-    private void calculateDDayDiscount() {
-        int discount = dDayDiscountEvent.findDiscount(visitDate);
-        eventDetails.addDiscount(dDayDiscountEvent.getEventName(), discount);
-    }
-
-    private void calculateSpecialDiscount() {
-        int discount = specialDiscountEvent.findDiscount(visitDate);
-        eventDetails.addDiscount(specialDiscountEvent.getEventName(), discount);
+    public Orders getOrders() {
+        return orders;
     }
 
     public Map<String, Integer> getEventDetails() {
