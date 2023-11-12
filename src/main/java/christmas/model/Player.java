@@ -1,6 +1,4 @@
-package christmas.domain;
-
-import java.util.Map;
+package christmas.model;
 
 public class Player {
 
@@ -28,7 +26,4 @@ public class Player {
         return orders;
     }
 
-    public Map<String, Integer> getEventDetails() {
-        return eventDetails.getDetails();
-    }
 }

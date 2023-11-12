@@ -1,30 +1,34 @@
 package christmas.controller;
 
 import static christmas.constants.ErrorMessage.INVALID_DATE_MESSAGE;
+import static christmas.constants.ErrorMessage.INVALID_ORDER_MESSAGE;
 import static christmas.constants.OutputMessage.REQUEST_DATE_MESSAGE;
 
 import christmas.constants.OutputMessage;
-import christmas.domain.Player;
+import christmas.domain.Orders;
 import christmas.domain.VisitDate;
+import christmas.service.EventService;
 import christmas.view.InputView;
 import christmas.view.OutputView;
+import java.util.Map;
 
 public class EventController {
 
+    private final EventService eventService;
     private final OutputView outputView;
     private final InputView inputView;
 
-    public EventController(OutputView outputView, InputView inputView) {
+    public EventController(EventService eventService, OutputView outputView, InputView inputView) {
+        this.eventService = eventService;
         this.outputView = outputView;
         this.inputView = inputView;
     }
 
     public void run() {
         VisitDate visitDate = createVisitDate();
-        Player player = Player.from(visitDate);
-        player.calculateDiscount();
-        outputView.printRequestMessage(OutputMessage.REQUEST_ORDER_MESSAGE);
-        inputView.readOrders();
+        Orders orders = createOrders();
+        Map<String, Integer> eventDetails = eventService.calculateDiscount(visitDate, orders);
+        System.out.println(eventDetails);
     }
 
     private VisitDate createVisitDate() {
@@ -34,6 +38,17 @@ public class EventController {
                 return VisitDate.from(inputView.readVisitDate());
             } catch (IllegalArgumentException e) {
                 outputView.printErrorMessage(INVALID_DATE_MESSAGE);
+            }
+        }
+    }
+
+    private Orders createOrders() {
+        outputView.printRequestMessage(OutputMessage.REQUEST_ORDER_MESSAGE);
+        while (true) {
+            try {
+                return Orders.fromInput(inputView.readOrders());
+            } catch (IllegalArgumentException e) {
+                outputView.printErrorMessage(INVALID_ORDER_MESSAGE);
             }
         }
     }

@@ -1,10 +1,10 @@
-package christmas.domain.event;
+package christmas.model.event;
 
-import static christmas.constants.domain.SpecialDiscountConstants.DEFAULT_DISCOUNT;
-import static christmas.constants.domain.SpecialDiscountConstants.NO_DISCOUNT;
+import static christmas.constants.model.EventConstants.NO_DISCOUNT;
+import static christmas.constants.model.EventConstants.SPECIAL_EVENT_DEFAULT_DISCOUNT;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import christmas.domain.VisitDate;
+import christmas.model.VisitDate;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -43,7 +43,7 @@ public class SpecialDiscountEventTest {
         //when
         int result = specialDiscountEvent.findDiscount(visitDate);
         //then
-        assertThat(result).isEqualTo(DEFAULT_DISCOUNT);
+        assertThat(result).isEqualTo(SPECIAL_EVENT_DEFAULT_DISCOUNT);
     }
 
     private static Stream<Arguments> starDateDiscount() {
