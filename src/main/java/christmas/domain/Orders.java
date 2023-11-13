@@ -2,7 +2,6 @@ package christmas.model;
 
 import static christmas.constants.InputConstants.DISTINGUISH_SIGN_TO_CHAR;
 
-import christmas.constants.model.Menu;
 import christmas.constants.model.MenuType;
 import christmas.exception.InvalidOrderException;
 import java.util.ArrayList;
@@ -36,23 +35,16 @@ public class Orders {
     }
 
 
-    public int countDessertMenu() {
+    public int countByMenuType(MenuType menuType) {
         return orders.stream()
-                .filter(Order::isDessertMenu)
-                .mapToInt(Order::getCount)
-                .sum();
-    }
-
-    public int countMainMenu() {
-        return orders.stream()
-                .filter(Order::isMainMenu)
+                .filter(order -> order.isCorrectMenuType(menuType))
                 .mapToInt(Order::getCount)
                 .sum();
     }
 
     public int allPriceSum() {
         return orders.stream()
-                .mapToInt(Order::price)
+                .mapToInt(Order::findPrice)
                 .sum();
     }
 
@@ -66,30 +58,25 @@ public class Orders {
     private void validateDuplicatedNames(List<Order> orders) {
         Set<String> duplicationChecker = new HashSet<>();
         List<String> ordersMenuName = orders.stream()
-                .map(Order::getMenu)
-                .map(Menu::getName)
+                .map(Order::findMenuName)
                 .toList();
         for (String orderMenuName : ordersMenuName) {
-            if (isDuplicated(duplicationChecker, orderMenuName)) {
-                throw InvalidOrderException.exception;
-            }
+            checkDuplicatedName(duplicationChecker, orderMenuName);
         }
     }
 
-    private boolean isDuplicated(Set<String> duplicationChecker, String orderMenuName) {
+    private void checkDuplicatedName(Set<String> duplicationChecker, String orderMenuName) {
         if (duplicationChecker.add(orderMenuName)) {
-            return false;
+            return;
         }
-        return true;
+        throw InvalidOrderException.exception;
     }
 
     private void validateOrdersOnlyBeverage(List<Order> orders) {
         List<MenuType> menuTypes = orders.stream()
-                .map((Order::getMenu))
-                .map(Menu::getMenuType)
+                .map((Order::findMenuType))
                 .toList();
         if (isContainOnlyBeverage(menuTypes)) {
-
             throw InvalidOrderException.exception;
         }
     }
