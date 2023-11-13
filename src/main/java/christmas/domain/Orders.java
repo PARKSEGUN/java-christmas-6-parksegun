@@ -87,4 +87,12 @@ public class Orders {
         }
     }
 
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Order order : orders) {
+            stringBuilder.append(order).append("\n");
+        }
+        return stringBuilder.toString();
+    }
 }

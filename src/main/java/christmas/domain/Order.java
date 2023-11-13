@@ -1,6 +1,7 @@
-package christmas.domain;
+package christmas.model;
 
-import christmas.constants.domain.Menu;
+import christmas.constants.model.Menu;
+import christmas.constants.model.MenuType;
 import christmas.exception.InvalidOrderException;
 
 public class Order {
@@ -25,6 +26,18 @@ public class Order {
         if ((count < MIN_COUNT) || (count > MAX_COUNT)) {
             throw InvalidOrderException.exception;
         }
+    }
+
+    public boolean isDessertMenu() {
+        return menu.getMenuType() == MenuType.DESSERT;
+    }
+
+    public boolean isMainMenu() {
+        return menu.getMenuType() == MenuType.MAIN;
+    }
+
+    public int price() {
+        return menu.getPrice() * count;
     }
 
     public Menu getMenu() {

@@ -1,8 +1,11 @@
 package christmas.view;
 
+import christmas.constants.ErrorMessage;
+import christmas.constants.OutputMessage;
+
 public class OutputView {
-    public void printErrorMessage(String message) {
-        System.out.println(message);
+    public void printErrorMessage(ErrorMessage message) {
+        System.out.println(message.getMessage());
     }
 
     public void printRequestMessage(OutputMessage message) {

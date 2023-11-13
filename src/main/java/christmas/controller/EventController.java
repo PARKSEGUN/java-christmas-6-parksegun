@@ -5,6 +5,7 @@ import static christmas.constants.ErrorMessage.INVALID_ORDER_MESSAGE;
 import static christmas.constants.OutputMessage.REQUEST_DATE_MESSAGE;
 
 import christmas.constants.OutputMessage;
+import christmas.constants.model.EventBadge;
 import christmas.model.EventDetails;
 import christmas.model.Orders;
 import christmas.model.VisitDate;
@@ -28,7 +29,7 @@ public class EventController {
         VisitDate visitDate = createVisitDate();
         Orders orders = createOrders();
         EventDetails eventDetails = EventDetails.from(eventService.calculateDiscount(visitDate, orders));
-        System.out.println(eventDetails);
+        EventBadge eventBadge = eventService.createEventBadge(eventDetails);
     }
 
     private VisitDate createVisitDate() {
