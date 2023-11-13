@@ -27,7 +27,7 @@ public class EventDetails {
         return new EventDetails(details);
     }
 
-    public int sumOfDiscounts() {
+    public int findSumOfDiscount() {
         return details.values().stream()
                 .mapToInt(i -> i)
                 .sum();
@@ -43,7 +43,7 @@ public class EventDetails {
     public String toStringDiscountInfo() {
         DecimalFormat decimalFormat = new DecimalFormat();
         StringBuilder discountInfo = new StringBuilder();
-        if (sumOfDiscounts() == NO_DISCOUNT) {
+        if (findSumOfDiscount() == NO_DISCOUNT) {
             return "없음";
         }
         for (EventName eventName : details.keySet()) {
