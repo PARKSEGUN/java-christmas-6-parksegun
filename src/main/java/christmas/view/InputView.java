@@ -52,7 +52,7 @@ public class InputView {
 
     private void readOrderValidate(String input) {
         InputValidator.endOfInputNotSplitSign(input);
-        InputValidator.splitInputEmpty(input);
+        //    InputValidator.splitInputEmpty(input);
         List<String> splitInput = Arrays.stream(input.split(SPLIT_SIGN)).toList();
         splitInput.forEach(InputValidator::notOneCountDistinguishSign);
         splitInput.stream()
