@@ -1,6 +1,7 @@
 package christmas.model;
 
 import static christmas.constants.InputConstants.DISTINGUISH_SIGN_TO_CHAR;
+import static christmas.constants.model.MenuType.BEVERAGE;
 
 import christmas.constants.model.MenuType;
 import christmas.exception.InvalidOrderException;
@@ -9,31 +10,32 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/*
+ *   모든 주문의 정보르 담당
+ * */
+
 public class Orders {
-    private static final int BEGIN_INDEX = 0;
     private static final int MAX_COUNT = 20;
     private final List<Order> orders;
 
     private Orders(List<Order> orders) {
         validate(orders);
-
         this.orders = orders;
     }
 
     public static Orders fromInput(List<String> splitInputs) {
-        return new Orders(inputToOrders(splitInputs));
+        return new Orders(splitInputsToOrders(splitInputs));
     }
 
-    private static List<Order> inputToOrders(List<String> splitInputs) {
+    private static List<Order> splitInputsToOrders(List<String> splitInputs) {
         List<Order> newOrders = new ArrayList<>();
         for (String splitInput : splitInputs) {
-            String menuName = splitInput.substring(BEGIN_INDEX, splitInput.indexOf(DISTINGUISH_SIGN_TO_CHAR));
+            String menuName = splitInput.substring(0, splitInput.indexOf(DISTINGUISH_SIGN_TO_CHAR));
             int menuCount = Integer.parseInt(splitInput.substring(splitInput.indexOf(DISTINGUISH_SIGN_TO_CHAR) + 1));
             newOrders.add(Order.of(menuName, menuCount));
         }
         return newOrders;
     }
-
 
     public int countByMenuType(MenuType menuType) {
         return orders.stream()
@@ -42,13 +44,12 @@ public class Orders {
                 .sum();
     }
 
-    public int allPriceSum() {
+    public int findSumOfPrice() {
         return orders.stream()
                 .mapToInt(Order::findPrice)
                 .sum();
     }
 
-    ////////////////////////////////////////////////////////////////////////////////
     private void validate(List<Order> orders) {
         validateDuplicatedNames(orders);
         validateOrdersOnlyBeverage(orders);
@@ -57,11 +58,8 @@ public class Orders {
 
     private void validateDuplicatedNames(List<Order> orders) {
         Set<String> duplicationChecker = new HashSet<>();
-        List<String> ordersMenuName = orders.stream()
-                .map(Order::findMenuName)
-                .toList();
-        for (String orderMenuName : ordersMenuName) {
-            checkDuplicatedName(duplicationChecker, orderMenuName);
+        for (Order order : orders) {
+            checkDuplicatedName(duplicationChecker, order.findMenuName());
         }
     }
 
@@ -73,21 +71,14 @@ public class Orders {
     }
 
     private void validateOrdersOnlyBeverage(List<Order> orders) {
-        List<MenuType> menuTypes = orders.stream()
+        int beverageCount = (int) orders.stream()
                 .map((Order::findMenuType))
-                .toList();
-        if (isContainOnlyBeverage(menuTypes)) {
+                .filter(menuType -> menuType.equals(BEVERAGE))
+                .count();
+        if (orders.size() == beverageCount) {
             throw InvalidOrderException.exception;
         }
     }
-
-    private boolean isContainOnlyBeverage(List<MenuType> menuTypes) {
-        int beverageCount = (int) menuTypes.stream()
-                .filter(menuType -> menuType.equals(MenuType.BEVERAGE))
-                .count();
-        return menuTypes.size() == beverageCount;
-    }
-
 
     private void validateMenuCount(List<Order> orders) {
         int countSum = orders.stream()
