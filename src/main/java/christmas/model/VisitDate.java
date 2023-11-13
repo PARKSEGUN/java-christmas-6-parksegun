@@ -24,6 +24,11 @@ public class VisitDate {
         }
     }
 
+    @Override
+    public String toString() {
+        return "(방문날짜)" + date;
+    }
+
     public int getDate() {
         return date;
     }

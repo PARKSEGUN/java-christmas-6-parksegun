@@ -5,9 +5,9 @@ import static christmas.constants.ErrorMessage.INVALID_ORDER_MESSAGE;
 import static christmas.constants.OutputMessage.REQUEST_DATE_MESSAGE;
 
 import christmas.constants.OutputMessage;
-import christmas.constants.model.EventBadge;
 import christmas.model.EventDetails;
 import christmas.model.Orders;
+import christmas.model.Player;
 import christmas.model.VisitDate;
 import christmas.service.EventService;
 import christmas.view.InputView;
@@ -29,7 +29,9 @@ public class EventController {
         VisitDate visitDate = createVisitDate();
         Orders orders = createOrders();
         EventDetails eventDetails = EventDetails.from(eventService.calculateDiscount(visitDate, orders));
-        EventBadge eventBadge = eventService.createEventBadge(eventDetails);
+        Player player = Player.of(visitDate, orders, eventDetails);
+        outputView.printEventPreviewMessage(visitDate);
+        outputView.printEventPreview(player.createPreviewInfoOutput());
     }
 
     private VisitDate createVisitDate() {
