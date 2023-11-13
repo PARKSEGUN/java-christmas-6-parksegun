@@ -30,7 +30,7 @@ public class InputView {
 
     private int tryReadDate() {
         String input = Console.readLine();
-        InputValidator.overNumberMax(input);
+        InputValidator.notCorrectNumber(input);
         return Integer.parseInt(input);
     }
 
