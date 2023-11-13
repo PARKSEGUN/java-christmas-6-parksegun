@@ -24,7 +24,7 @@ public class Player {
     }
 
     public int findAllDiscount() {
-        return eventDetails.findAllDiscount();
+        return eventDetails.sumOfDiscounts();
     }
 
     public EventBadge findMatchingBadge() {
@@ -40,11 +40,11 @@ public class Player {
 
     private void addPreviewInfoMessage(List<String> previewInfo, DecimalFormat decimalFormat) {
         int allOrdersPrice = orders.allPriceSum();
-        int allDiscount = eventDetails.findAllDiscount();
+        int allDiscount = eventDetails.sumOfDiscounts();
         previewInfo.add(orders.toString());
         previewInfo.add(String.format(PRICE_FORMAT.getMessage(), decimalFormat.format(allOrdersPrice)) + "\n");
-        previewInfo.add(eventDetails.giftInfoToString() + "\n");
-        previewInfo.add(eventDetails.discountInfoToString());
+        previewInfo.add(eventDetails.toStringGiftEvent() + "\n");
+        previewInfo.add(eventDetails.toStringDiscountInfo());
         previewInfo.add(String.format(PRICE_FORMAT.getMessage(), decimalFormat.format(-allDiscount)) + "\n");
         previewInfo.add(
                 String.format(PRICE_FORMAT.getMessage(), decimalFormat.format(allOrdersPrice - allDiscount)) + "\n");

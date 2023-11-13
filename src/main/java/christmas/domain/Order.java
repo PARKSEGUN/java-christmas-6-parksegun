@@ -1,5 +1,7 @@
 package christmas.model;
 
+import static christmas.constants.OutputMessage.ORDER_FORMAT;
+
 import christmas.constants.model.Menu;
 import christmas.constants.model.MenuType;
 import christmas.exception.InvalidOrderException;
@@ -40,6 +42,11 @@ public class Order {
         return menu.getPrice() * count;
     }
 
+    @Override
+    public String toString() {
+        return String.format(ORDER_FORMAT.getMessage(), menu.getName(), count);
+    }
+
     public Menu getMenu() {
         return menu;
     }
@@ -47,4 +54,6 @@ public class Order {
     public int getCount() {
         return count;
     }
+
+
 }
