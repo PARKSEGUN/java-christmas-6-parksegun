@@ -12,7 +12,7 @@ public class GiftEvent implements OrdersEvent {
 
     @Override
     public int findDiscount(Orders orders) {
-        if (orders.allPriceSum() >= GIFT_CONDITION) {
+        if (orders.findSumOfPrice() >= GIFT_CONDITION) {
             return GIFT_PRICE;
         }
         return NO_DISCOUNT;
