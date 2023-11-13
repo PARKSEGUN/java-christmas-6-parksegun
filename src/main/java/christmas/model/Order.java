@@ -6,6 +6,10 @@ import christmas.constants.model.Menu;
 import christmas.constants.model.MenuType;
 import christmas.exception.InvalidOrderException;
 
+/*
+ *   주문에 대한 정보 담당
+ * */
+
 public class Order {
     private static final int MIN_COUNT = 1;
     private static final int MAX_COUNT = 20;
@@ -20,7 +24,7 @@ public class Order {
         this.count = count;
     }
 
-    public static final Order of(String menuName, int count) {
+    public static Order of(String menuName, int count) {
         return new Order(Menu.fromName(menuName), count);
     }
 
@@ -30,16 +34,20 @@ public class Order {
         }
     }
 
-    public boolean isDessertMenu() {
-        return menu.getMenuType() == MenuType.DESSERT;
+    public boolean isCorrectMenuType(MenuType menuType) {
+        return menu.getMenuType().equals(menuType);
     }
 
-    public boolean isMainMenu() {
-        return menu.getMenuType() == MenuType.MAIN;
-    }
-
-    public int price() {
+    public int findPrice() {
         return menu.getPrice() * count;
+    }
+
+    public MenuType findMenuType() {
+        return menu.getMenuType();
+    }
+
+    public String findMenuName() {
+        return menu.getName();
     }
 
     @Override
@@ -47,13 +55,7 @@ public class Order {
         return String.format(ORDER_FORMAT.getMessage(), menu.getName(), count);
     }
 
-    public Menu getMenu() {
-        return menu;
-    }
-
     public int getCount() {
         return count;
     }
-
-
 }

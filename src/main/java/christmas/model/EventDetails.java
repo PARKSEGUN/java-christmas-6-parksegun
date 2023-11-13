@@ -12,7 +12,7 @@ import java.text.DecimalFormat;
 import java.util.Map;
 
 /*
- *  이벤트의 할인금액에 대한 정보를 담당
+ *  이벤트의 할인금액에 대한 정보 담당
  * */
 
 public class EventDetails {

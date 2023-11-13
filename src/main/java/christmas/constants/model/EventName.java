@@ -7,13 +7,14 @@ public enum EventName {
     SPECIAL_DISCOUNT("특별 할인"),
     GIFT_EVENT("증정 이벤트");
 
-    private final String eventName;
+    private final String name;
 
-    EventName(String eventName) {
-        this.eventName = eventName;
+    EventName(String name) {
+        this.name = name;
     }
 
-    public String getEventName() {
-        return eventName;
+    public String getName() {
+        return name;
     }
+
 }
