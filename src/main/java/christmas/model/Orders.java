@@ -1,7 +1,6 @@
 package christmas.model;
 
 import static christmas.constants.InputConstants.DISTINGUISH_SIGN_TO_CHAR;
-import static christmas.constants.model.MenuType.BEVERAGE;
 
 import christmas.constants.model.MenuType;
 import christmas.exception.InvalidOrderException;
@@ -59,7 +58,7 @@ public class Orders {
     private void validateDuplicatedNames(List<Order> orders) {
         Set<String> duplicationChecker = new HashSet<>();
         for (Order order : orders) {
-            checkDuplicatedName(duplicationChecker, order.findMenuName());
+            checkDuplicatedName(duplicationChecker, order.getMenuName());
         }
     }
 
@@ -71,13 +70,12 @@ public class Orders {
     }
 
     private void validateOrdersOnlyBeverage(List<Order> orders) {
-        int beverageCount = (int) orders.stream()
-                .map((Order::findMenuType))
-                .filter(menuType -> menuType.equals(BEVERAGE))
-                .count();
-        if (orders.size() == beverageCount) {
-            throw InvalidOrderException.exception;
+        for (Order order : orders) {
+            if (order.isDifferentBeverage()) {
+                return;
+            }
         }
+        throw InvalidOrderException.exception;
     }
 
     private void validateMenuCount(List<Order> orders) {

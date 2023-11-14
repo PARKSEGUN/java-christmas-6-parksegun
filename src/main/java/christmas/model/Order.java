@@ -1,6 +1,7 @@
 package christmas.model;
 
 import static christmas.constants.OutputMessage.ORDER_FORMAT;
+import static christmas.constants.model.MenuType.BEVERAGE;
 
 import christmas.constants.model.Menu;
 import christmas.constants.model.MenuType;
@@ -15,7 +16,6 @@ public class Order {
     private static final int MAX_COUNT = 20;
 
     private final Menu menu;
-
     private final int count;
 
     private Order(Menu menu, int count) {
@@ -38,21 +38,24 @@ public class Order {
         return menu.getMenuType().equals(menuType);
     }
 
+    public boolean isDifferentBeverage() {
+        if (menu.getMenuType().equals(BEVERAGE)) {
+            return false;
+        }
+        return true;
+    }
+
     public int findPrice() {
         return menu.getPrice() * count;
-    }
-
-    public MenuType findMenuType() {
-        return menu.getMenuType();
-    }
-
-    public String findMenuName() {
-        return menu.getName();
     }
 
     @Override
     public String toString() {
         return String.format(ORDER_FORMAT, menu.getName(), count);
+    }
+
+    public String getMenuName() {
+        return menu.getName();
     }
 
     public int getCount() {
