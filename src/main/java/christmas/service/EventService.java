@@ -1,5 +1,6 @@
 package christmas.service;
 
+import static christmas.constants.model.EventConstants.EVENT_CONDITION_PRICE;
 import static christmas.constants.model.EventConstants.NO_DISCOUNT;
 
 import christmas.constants.model.DayInfo;
@@ -36,12 +37,23 @@ public class EventService {
     }
 
     public Map<EventName, Integer> calculateDiscount(VisitDate visitDate, Orders orders) {
+        if (orders.findSumOfPrice() < EVENT_CONDITION_PRICE) {
+            return notApplyEvent();
+        }
         Map<EventName, Integer> eventDetails = new HashMap<>();
         eventDetails.put(dDayDiscountEvent.getEventName(), dDayDiscountEvent.findDiscount(visitDate));
         eventDetails.put(specialDiscountEvent.getEventName(), specialDiscountEvent.findDiscount(visitDate));
         eventDetails.put(giftEvent.getEventName(), giftEvent.findDiscount(orders));
         eventDetails.putAll(calculateWeekDiscount(visitDate, orders));
         return eventDetails;
+    }
+
+    private Map<EventName, Integer> notApplyEvent() {
+        Map<EventName, Integer> applyInfo = new HashMap<>();
+        for (EventName eventName : EventName.values()) {
+            applyInfo.put(eventName, NO_DISCOUNT);
+        }
+        return applyInfo;
     }
 
     private Map<EventName, Integer> calculateWeekDiscount(VisitDate visitDate, Orders orders) {
