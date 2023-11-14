@@ -130,7 +130,7 @@ public class OrdersTest {
 
     private static Stream<Arguments> OrdersNotOnlyBeverage() {
         return Stream.of(
-                Arguments.of(List.of("제로콜라-1", "양송이수프-1")),
+                Arguments.of(List.of("제로콜라-2", "양송이수프-1")),
                 Arguments.of(List.of("제로콜라-1", "레드와인-2", "해산물파스타-1")),
                 Arguments.of(List.of("제로콜라-1", "레드와인-2", "샴페인-3", "크리스마스파스타-1"))
         );
