@@ -52,7 +52,7 @@ public class Order {
 
     @Override
     public String toString() {
-        return String.format(ORDER_FORMAT.getMessage(), menu.getName(), count);
+        return String.format(ORDER_FORMAT, menu.getName(), count);
     }
 
     public int getCount() {

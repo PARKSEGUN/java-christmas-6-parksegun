@@ -1,34 +1,94 @@
 package christmas.view;
 
+import static christmas.constants.OutputMessage.ALL_DISCOUNT_PRICE_MESSAGE;
+import static christmas.constants.OutputMessage.ALL_ORDER_PRICE_MESSAGE;
+import static christmas.constants.OutputMessage.DISCOUNT_DETAIL_MESSAGE;
+import static christmas.constants.OutputMessage.EVENT_BADGE_MESSAGE;
 import static christmas.constants.OutputMessage.EVENT_PREVIEW_MESSAGE_FORMAT;
+import static christmas.constants.OutputMessage.EXPECTED_PAYMENT_MESSAGE;
+import static christmas.constants.OutputMessage.GIFT_MENU_MESSAGE;
+import static christmas.constants.OutputMessage.MONEY_FORMAT;
+import static christmas.constants.OutputMessage.ORDER_MENU_MESSAGE;
 
 import christmas.constants.ErrorMessage;
 import christmas.constants.OutputMessage;
+import christmas.constants.model.EventBadge;
+import christmas.model.EventDetails;
+import christmas.model.Orders;
 import christmas.model.VisitDate;
-import java.util.List;
+import java.text.DecimalFormat;
+
+/*
+ *   출력 담당
+ * */
 
 public class OutputView {
-    private static final int eventPreviewTypeCount = 7;
-    private static final List<String> eventPreviewTitle = List.of(
-            "<주문 메뉴>", "<할인 전 총주문 금액>", "<증정 메뉴>", "<혜택 내역>", "<총혜택 금액>", "<할인 후 예상 결제 금액>", "<12월 이벤트 배지>"
-    );
 
     public void printErrorMessage(ErrorMessage message) {
         System.out.println(message.getMessage());
     }
 
-    public void printRequestMessage(OutputMessage message) {
+    public void printOutputMessage(OutputMessage message) {
         System.out.println(message.getMessage());
     }
 
-    public void printEventPreview(List<String> previewResultInfo) {
-        for (int currentTypeCount = 0; currentTypeCount < eventPreviewTypeCount; currentTypeCount++) {
-            System.out.println(eventPreviewTitle.get(currentTypeCount));
-            System.out.println(previewResultInfo.get(currentTypeCount));
-        }
+    //얘 위치 다시 생각
+    private String convertToMoneyFormat(int money) {
+        DecimalFormat decimalFormat = new DecimalFormat();
+        return String.format(MONEY_FORMAT, decimalFormat.format(money));
     }
 
-    public void printEventPreviewMessage(VisitDate visitDate) {
-        System.out.println(String.format(EVENT_PREVIEW_MESSAGE_FORMAT.getMessage(), visitDate.getDate()));
+
+    public void printEventPreview(VisitDate visitDate, Orders orders, EventDetails eventDetails) {
+        int allOrdersPrice = orders.findSumOfPrice();
+        int allDiscount = eventDetails.findSumOfDiscount();
+        printEventPreviewMessage(visitDate);
+        printOrderMenu(orders);
+        printAllOrderPrice(allOrdersPrice);
+        printGiftMenu(eventDetails);
+        printDiscountDetail(eventDetails);
+        printAllDiscountPrice(allDiscount);
+        printExpectedPayment(allOrdersPrice - allDiscount);
+        printEventBadge(eventDetails.findEventBadge());
+    }
+
+    private void printEventPreviewMessage(VisitDate visitDate) {
+        System.out.println(String.format(EVENT_PREVIEW_MESSAGE_FORMAT, visitDate.getDate()));
+    }
+
+    private void printOrderMenu(Orders orders) {
+        printOutputMessage(ORDER_MENU_MESSAGE);
+        System.out.println(orders.toString());
+    }
+
+    private void printAllOrderPrice(int allOrdersPrice) {
+        printOutputMessage(ALL_ORDER_PRICE_MESSAGE);
+        System.out.println(convertToMoneyFormat(allOrdersPrice));
+    }
+
+    private void printGiftMenu(EventDetails eventDetails) {
+        printOutputMessage(GIFT_MENU_MESSAGE);
+        System.out.println(eventDetails.toStringGiftEvent());
+    }
+
+    private void printDiscountDetail(EventDetails eventDetails) {
+        printOutputMessage(DISCOUNT_DETAIL_MESSAGE);
+        System.out.println(eventDetails.toStringDiscountInfo());
+    }
+
+    private void printAllDiscountPrice(int allDiscount) {
+        printOutputMessage(ALL_DISCOUNT_PRICE_MESSAGE);
+        System.out.println(convertToMoneyFormat(-allDiscount));
+    }
+
+
+    private void printExpectedPayment(int expectedPayment) {
+        printOutputMessage(EXPECTED_PAYMENT_MESSAGE);
+        System.out.println(convertToMoneyFormat(expectedPayment));
+    }
+
+    private void printEventBadge(EventBadge eventBadge) {
+        printOutputMessage(EVENT_BADGE_MESSAGE);
+        System.out.println(eventBadge.getName());
     }
 }

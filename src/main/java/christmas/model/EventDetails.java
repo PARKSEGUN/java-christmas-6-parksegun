@@ -1,12 +1,13 @@
 package christmas.model;
 
-import static christmas.constants.OutputMessage.EVENT_DETAIL_FORMAT;
+import static christmas.constants.OutputMessage.DISCOUNT_DETAIL_FORMAT;
 import static christmas.constants.OutputMessage.GIFT_INFO_FORMAT;
-import static christmas.constants.OutputMessage.NO_GIFT_FORMAT;
+import static christmas.constants.OutputMessage.NOT_APPLY_EVENT;
 import static christmas.constants.model.EventConstants.NO_DISCOUNT;
 import static christmas.constants.model.EventName.GIFT_EVENT;
 import static christmas.constants.model.Menu.CHAMPAGNE;
 
+import christmas.constants.model.EventBadge;
 import christmas.constants.model.EventName;
 import java.text.DecimalFormat;
 import java.util.Map;
@@ -35,9 +36,13 @@ public class EventDetails {
 
     public String toStringGiftEvent() {
         if (details.get(GIFT_EVENT) == CHAMPAGNE.getPrice()) {
-            return String.format(GIFT_INFO_FORMAT.getMessage(), CHAMPAGNE.getName());
+            return String.format(GIFT_INFO_FORMAT, CHAMPAGNE.getName());
         }
-        return NO_GIFT_FORMAT.getMessage();
+        return NOT_APPLY_EVENT.getMessage();
+    }
+
+    public EventBadge findEventBadge() {
+        return EventBadge.findMatchingBadge(findSumOfDiscount());
     }
 
     public String toStringDiscountInfo() {
@@ -55,10 +60,9 @@ public class EventDetails {
     private String makeDiscountInfo(DecimalFormat decimalFormat, EventName eventName) {
         Integer discount = details.get(eventName);
         if (discount > NO_DISCOUNT) {
-            return String.format(
-                    EVENT_DETAIL_FORMAT.getMessage(), eventName.getName(), decimalFormat.format(discount)
-            );
+            return String.format(DISCOUNT_DETAIL_FORMAT, eventName.getName(), decimalFormat.format(discount)) + "\n";
         }
         return "";
     }
+
 }
