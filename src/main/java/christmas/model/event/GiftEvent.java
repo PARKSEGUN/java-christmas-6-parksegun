@@ -5,9 +5,15 @@ import static christmas.constants.model.EventConstants.NO_DISCOUNT;
 import christmas.constants.model.EventName;
 import christmas.model.Orders;
 
+/*
+ *   증정 이벤트를 담당
+ * */
+
 public class GiftEvent implements OrdersEvent {
+
     private static final int GIFT_CONDITION = 120_000;
     private static final int GIFT_PRICE = 25_000;
+
     private final EventName eventName = EventName.GIFT_EVENT;
 
     @Override

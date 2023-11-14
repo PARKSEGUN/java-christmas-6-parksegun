@@ -6,10 +6,13 @@ import static christmas.constants.model.MenuType.DESSERT;
 import static christmas.constants.model.MenuType.MAIN;
 
 import christmas.exception.InvalidOrderException;
-import java.util.Arrays;
-import java.util.List;
+
+/*
+ *   메뉴에 대한 상수 정보 담당
+ * */
 
 public enum Menu {
+
     MUSHROOM_SOUP("양송이수프", 6_000, APPETIZER),
     TAPAS("타파스", 5_500, APPETIZER),
     CAESAR_SALAD("시저샐러드", 8_000, APPETIZER),
@@ -23,7 +26,6 @@ public enum Menu {
     RED_WINE("레드와인", 60_000, BEVERAGE),
     CHAMPAGNE("샴페인", 25_000, BEVERAGE);
 
-
     private final String name;
     private final int price;
     private final MenuType menuType;
@@ -34,16 +36,13 @@ public enum Menu {
         this.menuType = menuType;
     }
 
-    public static Menu fromName(String name) {
-        return validate(name);
+    public static Menu fromName(String inputName) {
+        return validate(inputName);
     }
 
-    private static Menu validate(String name) {
-        List<Menu> allMenu = Arrays.stream(values())
-                .toList();
-        for (Menu menu : allMenu) {
-            String menuName = menu.name;
-            if (menuName.equals(name)) {
+    private static Menu validate(String inputName) {
+        for (Menu menu : values()) {
+            if (menu.name.equals(inputName)) {
                 return menu;
             }
         }

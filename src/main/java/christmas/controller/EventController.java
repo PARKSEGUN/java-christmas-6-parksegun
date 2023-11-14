@@ -7,11 +7,12 @@ import static christmas.constants.OutputMessage.REQUEST_DATE_MESSAGE;
 import christmas.constants.OutputMessage;
 import christmas.model.EventDetails;
 import christmas.model.Orders;
-import christmas.model.Player;
 import christmas.model.VisitDate;
 import christmas.service.EventService;
 import christmas.view.InputView;
 import christmas.view.OutputView;
+import java.text.DecimalFormat;
+import java.util.List;
 
 public class EventController {
 
@@ -29,13 +30,16 @@ public class EventController {
         VisitDate visitDate = createVisitDate();
         Orders orders = createOrders();
         EventDetails eventDetails = EventDetails.from(eventService.calculateDiscount(visitDate, orders));
-        Player player = Player.of(visitDate, orders, eventDetails);
-        outputView.printEventPreviewMessage(visitDate);
-        outputView.printEventPreview(player.createPreviewInfoOutput());
+        outputView.printEventPreview(visitDate, orders, eventDetails);
+
+    }
+
+    private void addPreviewInfoMessage(List<String> previewInfo, DecimalFormat decimalFormat) {
+
     }
 
     private VisitDate createVisitDate() {
-        outputView.printRequestMessage(REQUEST_DATE_MESSAGE);
+        outputView.printOutputMessage(REQUEST_DATE_MESSAGE);
         while (true) {
             try {
                 return VisitDate.from(inputView.readVisitDate());
@@ -46,7 +50,7 @@ public class EventController {
     }
 
     private Orders createOrders() {
-        outputView.printRequestMessage(OutputMessage.REQUEST_ORDER_MESSAGE);
+        outputView.printOutputMessage(OutputMessage.REQUEST_ORDER_MESSAGE);
         while (true) {
             try {
                 return Orders.fromInput(inputView.readOrders());
