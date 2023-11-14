@@ -1,7 +1,10 @@
 package christmas.constants.model;
 
-import christmas.exception.InvalidDateException;
 import java.util.Arrays;
+
+/*
+ *   날짜와 요일에 대한 상수 정보 담당
+ * */
 
 public enum DayInfo {
 
@@ -25,7 +28,7 @@ public enum DayInfo {
         return Arrays.stream(values())
                 .filter(value -> value.startDate == (startDate % ALL_DAY_COUNT))
                 .findFirst()
-                .orElseThrow(() -> InvalidDateException.exception);
+                .orElseThrow(() -> new IllegalArgumentException("날짜에 대한 알맞은 요일이 없을 수 없습니다!"));
     }
 
     public boolean isWeekend() {

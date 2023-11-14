@@ -15,6 +15,10 @@ import christmas.model.event.WeekendDiscountEvent;
 import java.util.HashMap;
 import java.util.Map;
 
+/*
+ *   모든 이벤트 기능을 담당
+ * */
+
 public class EventService {
 
     private final DDayDiscountEvent dDayDiscountEvent;
@@ -54,5 +58,4 @@ public class EventService {
         eventDetails.put(rightEvent.getEventName(), NO_DISCOUNT);
         return eventDetails;
     }
-
 }

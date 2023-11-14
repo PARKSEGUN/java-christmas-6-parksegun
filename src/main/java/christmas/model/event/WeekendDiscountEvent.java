@@ -5,6 +5,10 @@ import static christmas.constants.model.MenuType.MAIN;
 import christmas.constants.model.EventName;
 import christmas.model.Orders;
 
+/*
+ *   주말 할인 이벤트를 담당
+ * */
+
 public class WeekendDiscountEvent implements OrdersEvent {
 
     private static final int DEFAULT_DISCOUNT = 2023;

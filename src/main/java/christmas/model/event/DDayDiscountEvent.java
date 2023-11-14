@@ -1,12 +1,15 @@
 package christmas.model.event;
 
-
 import static christmas.constants.model.EventConstants.D_DAY_EVENT_DEFAULT_DISCOUNT;
 import static christmas.constants.model.EventConstants.NO_DISCOUNT;
 import static christmas.constants.model.EventName.D_DAY_DISCOUNT;
 
 import christmas.constants.model.EventName;
 import christmas.model.VisitDate;
+
+/*
+ *   크리스마스 디데이 이벤트를 담당
+ * */
 
 public class DDayDiscountEvent implements VisitDateEvent {
 
@@ -30,6 +33,4 @@ public class DDayDiscountEvent implements VisitDateEvent {
         return eventName;
 
     }
-
-
 }

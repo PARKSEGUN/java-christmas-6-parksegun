@@ -1,6 +1,11 @@
 package christmas.constants.model;
 
+/*
+ *   이벤트 이름에 대한 상수 정보 담당
+ * */
+
 public enum EventName {
+
     D_DAY_DISCOUNT("크리스마스 디데이 할인"),
     WEEKDAY_DISCOUNT("평일 할인"),
     WEEKEND_DISCOUNT("주말 할인"),
@@ -16,5 +21,4 @@ public enum EventName {
     public String getName() {
         return name;
     }
-
 }

@@ -2,6 +2,10 @@ package christmas.model;
 
 import christmas.exception.InvalidDateException;
 
+/*
+ *   방문 날짜 정보 담당
+ * */
+
 public class VisitDate {
 
     private static final int MIN_DATE = 1;

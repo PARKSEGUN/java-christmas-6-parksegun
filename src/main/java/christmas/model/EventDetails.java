@@ -45,7 +45,8 @@ public class EventDetails {
         return EventBadge.findMatchingBadge(findSumOfDiscount());
     }
 
-    public String toStringDiscountInfo() {
+    @Override
+    public String toString() {
         DecimalFormat decimalFormat = new DecimalFormat();
         StringBuilder discountInfo = new StringBuilder();
         if (findSumOfDiscount() == NO_DISCOUNT) {
@@ -64,5 +65,4 @@ public class EventDetails {
         }
         return "";
     }
-
 }

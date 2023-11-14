@@ -11,8 +11,10 @@ import christmas.model.VisitDate;
 import christmas.service.EventService;
 import christmas.view.InputView;
 import christmas.view.OutputView;
-import java.text.DecimalFormat;
-import java.util.List;
+
+/*
+ *   프로젝트의 흐름을 담당
+ * */
 
 public class EventController {
 
@@ -31,11 +33,6 @@ public class EventController {
         Orders orders = createOrders();
         EventDetails eventDetails = EventDetails.from(eventService.calculateDiscount(visitDate, orders));
         outputView.printEventPreview(visitDate, orders, eventDetails);
-
-    }
-
-    private void addPreviewInfoMessage(List<String> previewInfo, DecimalFormat decimalFormat) {
-
     }
 
     private VisitDate createVisitDate() {
