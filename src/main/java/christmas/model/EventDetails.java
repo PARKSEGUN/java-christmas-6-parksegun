@@ -34,15 +34,15 @@ public class EventDetails {
                 .sum();
     }
 
+    public EventBadge findEventBadge() {
+        return EventBadge.findMatchingBadge(findSumOfDiscount());
+    }
+
     public String toStringGiftEvent() {
         if (details.get(GIFT_EVENT) == CHAMPAGNE.getPrice()) {
             return String.format(GIFT_INFO_FORMAT, CHAMPAGNE.getName());
         }
         return NOT_APPLY_EVENT.getMessage();
-    }
-
-    public EventBadge findEventBadge() {
-        return EventBadge.findMatchingBadge(findSumOfDiscount());
     }
 
     @Override
