@@ -1,12 +1,15 @@
 package christmas.constants.model;
 
+import java.util.Arrays;
+
 public enum EventBadge {
-    NONE("없음", 0),
-    STAR("별", 5_000),
+
+    SANTA("산타", 20_000),
+
     TREE("트리", 10_000),
-    SANTA("산타", 20_000);
 
-
+    STAR("별", 5_000),
+    NONE("없음", 0);
     private final String name;
     private final int priceCondition;
 
@@ -16,16 +19,12 @@ public enum EventBadge {
     }
 
     public static EventBadge findMatchingBadge(int allDiscount) {
-        if (allDiscount >= SANTA.priceCondition) {
-            return SANTA;
+        for (EventBadge currentEventBadge : Arrays.stream(values()).toList()) {
+            if (allDiscount >= currentEventBadge.priceCondition) {
+                return currentEventBadge;
+            }
         }
-        if (allDiscount >= TREE.priceCondition) {
-            return TREE;
-        }
-        if (allDiscount >= STAR.priceCondition) {
-            return STAR;
-        }
-        return NONE;
+        throw new IllegalArgumentException("할인의 합이 0보다 작은값은 될 수 없습니다");
     }
 
     public String getName() {

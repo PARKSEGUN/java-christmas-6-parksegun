@@ -10,13 +10,11 @@ import christmas.validator.InputValidator;
 import java.util.Arrays;
 import java.util.List;
 
+/*
+ *   입력 담당
+ * */
+
 public class InputView {
-
-    private final OutputView outputView;
-
-    public InputView() {
-        this.outputView = new OutputView();
-    }
 
     public int readVisitDate() {
         while (true) {
