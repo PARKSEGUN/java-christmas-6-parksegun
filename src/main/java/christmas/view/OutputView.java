@@ -32,16 +32,6 @@ public class OutputView {
         System.out.println(message.getMessage());
     }
 
-<<<<<<< HEAD
-    //얘 위치 다시 생각
-    private String convertToMoneyFormat(int money) {
-        DecimalFormat decimalFormat = new DecimalFormat();
-        return String.format(MONEY_FORMAT, decimalFormat.format(money));
-    }
-
-
-=======
->>>>>>> parksegun
     public void printEventPreview(VisitDate visitDate, Orders orders, EventDetails eventDetails) {
         int allOrdersPrice = orders.findSumOfPrice();
         int allDiscount = eventDetails.findSumOfDiscount();
@@ -61,11 +51,7 @@ public class OutputView {
 
     private void printOrderMenu(Orders orders) {
         printOutputMessage(ORDER_MENU_MESSAGE);
-<<<<<<< HEAD
-        System.out.println(orders.toString());
-=======
         System.out.println(orders);
->>>>>>> parksegun
     }
 
     private void printAllOrderPrice(int allOrdersPrice) {
@@ -80,11 +66,7 @@ public class OutputView {
 
     private void printDiscountDetail(EventDetails eventDetails) {
         printOutputMessage(DISCOUNT_DETAIL_MESSAGE);
-<<<<<<< HEAD
-        System.out.println(eventDetails.toStringDiscountInfo());
-=======
         System.out.println(eventDetails);
->>>>>>> parksegun
     }
 
     private void printAllDiscountPrice(int allDiscount) {
@@ -100,15 +82,11 @@ public class OutputView {
 
     private void printEventBadge(EventBadge eventBadge) {
         printOutputMessage(EVENT_BADGE_MESSAGE);
-<<<<<<< HEAD
-        System.out.println(eventBadge.getName());
-=======
         System.out.println(eventBadge);
     }
 
     private String convertToMoneyFormat(int money) {
         DecimalFormat decimalFormat = new DecimalFormat();
         return String.format(MONEY_FORMAT, decimalFormat.format(money));
->>>>>>> parksegun
     }
 }

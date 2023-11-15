@@ -8,10 +8,7 @@ import christmas.constants.model.EventName;
 import christmas.model.Orders;
 import christmas.model.VisitDate;
 import christmas.model.event.DDayDiscountEvent;
-<<<<<<< HEAD
-=======
 import christmas.model.event.GiftEvent;
->>>>>>> parksegun
 import christmas.model.event.OrdersEvent;
 import christmas.model.event.SpecialDiscountEvent;
 import christmas.model.event.WeekdayDiscountEvent;
@@ -29,20 +26,14 @@ public class EventService {
     private final SpecialDiscountEvent specialDiscountEvent;
     private final WeekdayDiscountEvent weekdayDiscountEvent;
     private final WeekendDiscountEvent weekendDiscountEvent;
-<<<<<<< HEAD
-=======
     private final GiftEvent giftEvent;
->>>>>>> parksegun
 
     public EventService() {
         this.dDayDiscountEvent = new DDayDiscountEvent();
         this.specialDiscountEvent = new SpecialDiscountEvent();
         this.weekdayDiscountEvent = new WeekdayDiscountEvent();
         this.weekendDiscountEvent = new WeekendDiscountEvent();
-<<<<<<< HEAD
-=======
         this.giftEvent = new GiftEvent();
->>>>>>> parksegun
     }
 
     public Map<EventName, Integer> calculateDiscount(VisitDate visitDate, Orders orders) {
@@ -52,10 +43,7 @@ public class EventService {
         Map<EventName, Integer> eventDetails = new HashMap<>();
         eventDetails.put(dDayDiscountEvent.getEventName(), dDayDiscountEvent.findDiscount(visitDate));
         eventDetails.put(specialDiscountEvent.getEventName(), specialDiscountEvent.findDiscount(visitDate));
-<<<<<<< HEAD
-=======
         eventDetails.put(giftEvent.getEventName(), giftEvent.findDiscount(orders));
->>>>>>> parksegun
         eventDetails.putAll(calculateWeekDiscount(visitDate, orders));
         return eventDetails;
     }

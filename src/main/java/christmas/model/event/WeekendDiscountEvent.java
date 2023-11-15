@@ -1,10 +1,7 @@
 package christmas.model.event;
 
-<<<<<<< HEAD
-=======
 import static christmas.constants.model.MenuType.MAIN;
 
->>>>>>> parksegun
 import christmas.constants.model.EventName;
 import christmas.model.Orders;
 
@@ -20,11 +17,7 @@ public class WeekendDiscountEvent implements OrdersEvent {
 
     @Override
     public int findDiscount(Orders orders) {
-<<<<<<< HEAD
-        return orders.countMainMenu() * DEFAULT_DISCOUNT;
-=======
         return orders.countByMenuType(MAIN) * DEFAULT_DISCOUNT;
->>>>>>> parksegun
     }
 
     @Override

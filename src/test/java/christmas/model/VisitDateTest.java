@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-package christmas.domain;
-=======
 package christmas.model;
->>>>>>> parksegun
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
