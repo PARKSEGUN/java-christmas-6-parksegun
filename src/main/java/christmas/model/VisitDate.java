@@ -24,7 +24,11 @@ public class VisitDate {
 
     private void validateDate(int date) {
         if ((date < MIN_DATE) || (date > MAX_DATE)) {
+<<<<<<< HEAD
             throw InvalidDateException.invalidDateException;
+=======
+            throw InvalidDateException.exception;
+>>>>>>> parksegun
         }
     }
 

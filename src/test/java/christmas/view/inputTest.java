@@ -1,24 +1,57 @@
+<<<<<<< HEAD
 package christmas.validator;
+=======
+package christmas.view;
+>>>>>>> parksegun
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 
+<<<<<<< HEAD
 import java.util.stream.Stream;
+=======
+import camp.nextstep.edu.missionutils.Console;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.util.stream.Stream;
+import org.junit.jupiter.api.AfterEach;
+>>>>>>> parksegun
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+<<<<<<< HEAD
 public class inputValidatorTest {
 
+=======
+public class inputTest {
+
+    private final InputView inputView = new InputView();
+
+    @AfterEach
+    void tearDown() {
+        Console.close();
+    }
+
+    public InputStream createInput(String input) {
+        return new ByteArrayInputStream(input.getBytes());
+    }
+>>>>>>> parksegun
 
     @ParameterizedTest
     @DisplayName("입력이 숫자일 경우 정상")
     @MethodSource
     void inputCorrectNumber(String input) {
         //given
+<<<<<<< HEAD
         //when
         Throwable result = catchThrowable(() -> InputValidator.notCorrectNumber(input));
+=======
+        System.setIn(createInput(input));
+        //when
+        Throwable result = catchThrowable(inputView::readVisitDate);
+>>>>>>> parksegun
         //then
         assertThat(result).doesNotThrowAnyException();
     }
@@ -38,8 +71,14 @@ public class inputValidatorTest {
     @MethodSource
     void inputNotNumber(String input) {
         //given
+<<<<<<< HEAD
         //when
         Throwable result = catchThrowable(() -> InputValidator.notCorrectNumber(input));
+=======
+        System.setIn(createInput(input));
+        //when
+        Throwable result = catchThrowable(inputView::readVisitDate);
+>>>>>>> parksegun
         //then
         assertThat(result).isInstanceOf(IllegalArgumentException.class);
     }
@@ -49,8 +88,12 @@ public class inputValidatorTest {
                 Arguments.of("a"),
                 Arguments.of("b"),
                 Arguments.of("ㅁ"),
+<<<<<<< HEAD
                 Arguments.of("."),
                 Arguments.of("-1")
+=======
+                Arguments.of(".")
+>>>>>>> parksegun
         );
     }
 
@@ -59,8 +102,14 @@ public class inputValidatorTest {
     @MethodSource
     void inputOverNumberValue(String input) {
         //given
+<<<<<<< HEAD
         //when
         Throwable result = catchThrowable(() -> InputValidator.notCorrectNumber(input));
+=======
+        System.setIn(createInput(input));
+        //when
+        Throwable result = catchThrowable(inputView::readVisitDate);
+>>>>>>> parksegun
         //then
         assertThat(result).isInstanceOf(IllegalArgumentException.class);
     }
@@ -75,6 +124,7 @@ public class inputValidatorTest {
         );
     }
 
+<<<<<<< HEAD
 //    @ParameterizedTest
 //    @DisplayName("(comma)를 기준으로 자른 문자열이 비어있을때 예외 발생")
 //    @MethodSource
@@ -115,13 +165,21 @@ public class inputValidatorTest {
 //        );
 //    }
 
+=======
+>>>>>>> parksegun
     @ParameterizedTest
     @DisplayName("(comma)로 나눠진 값이 정규식을 따르지 않는다면 예외 발생")
     @MethodSource
     void distinguishSignCountIsNotOne(String input) {
         //given
+<<<<<<< HEAD
         //when
         Throwable result = catchThrowable(() -> InputValidator.notOneCountDistinguishSign(input));
+=======
+        System.setIn(createInput(input));
+        //when
+        Throwable result = catchThrowable(inputView::readOrders);
+>>>>>>> parksegun
         //then
         assertThat(result).isInstanceOf(IllegalArgumentException.class);
     }
@@ -140,8 +198,14 @@ public class inputValidatorTest {
     @MethodSource
     void distinguishSignCountIsOne(String input) {
         //given
+<<<<<<< HEAD
         //when
         Throwable result = catchThrowable(() -> InputValidator.notOneCountDistinguishSign(input));
+=======
+        System.setIn(createInput(input));
+        //when
+        Throwable result = catchThrowable(inputView::readOrders);
+>>>>>>> parksegun
         //then
         assertThat(result).doesNotThrowAnyException();
     }
@@ -154,4 +218,29 @@ public class inputValidatorTest {
                 Arguments.of("파스타-5")
         );
     }
+<<<<<<< HEAD
+=======
+
+    @ParameterizedTest
+    @DisplayName("마지막 입력문자가 (comma)일때 예외 발생")
+    @MethodSource
+    void endOfInputWordIsComma(String input) {
+        //given
+        System.setIn(createInput(input));
+        //when
+        Throwable result = catchThrowable(inputView::readOrders);
+        //then
+        assertThat(result).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    private static Stream<Arguments> endOfInputWordIsComma() {
+        return Stream.of(
+                Arguments.of("가-3,"),
+                Arguments.of("가-3,,"),
+                Arguments.of("가-3,가-3,,"),
+                Arguments.of("가-3,가-3,가-3,")
+        );
+    }
+
+>>>>>>> parksegun
 }
